@@ -319,3 +319,5 @@ This project is licensed under the MIT License.
 **Project UUID:** `f7a9b3e2-9c1b-4d5a-8f7e-2b3d9e6c4f1a`
 
 **Happy Coding! 🎵✨** 
+NODE_ENV=development
+MONGO_URI from atlas=mongodb+srv://admin:TJXmoIRibSnNj02H@cluster1.4ksa3pu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1

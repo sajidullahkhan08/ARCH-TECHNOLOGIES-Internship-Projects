@@ -1,0 +1,245 @@
+.experience-section {
+  background: #f8fafc;
+}
+
+.experience-timeline {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.experience-timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+.experience-item {
+  position: relative;
+  margin-bottom: 3rem;
+}
+
+.experience-item:nth-child(odd) .experience-card {
+  margin-left: 0;
+  margin-right: 50%;
+  padding-right: 2rem;
+}
+
+.experience-item:nth-child(even) .experience-card {
+  margin-left: 50%;
+  margin-right: 0;
+  padding-left: 2rem;
+}
+
+.experience-item::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 2rem;
+  width: 16px;
+  height: 16px;
+  background: white;
+  border: 4px solid #3B82F6;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+}
+
+.experience-card {
+  position: relative;
+  padding: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.experience-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.experience-header {
+  margin-bottom: 1.5rem;
+}
+
+.experience-position {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.experience-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.experience-company {
+  font-size: 1.1rem;
+  color: #3B82F6;
+  font-weight: 600;
+  margin: 0;
+}
+
+.experience-duration,
+.experience-location {
+  color: #6b7280;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.current-badge {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.experience-description {
+  color: #4b5563;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-size: 1.05rem;
+}
+
+.experience-section {
+  margin-bottom: 1.5rem;
+}
+
+.experience-section h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.75rem;
+}
+
+.experience-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.experience-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+.experience-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: #3B82F6;
+  font-weight: bold;
+}
+
+.experience-list.contributions li::before {
+  content: '✓';
+  color: #10b981;
+}
+
+.experience-technologies {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.experience-technologies h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 1rem;
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tech-tag {
+  background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.timeline-connector {
+  height: 2rem;
+}
+
+.empty-state {
+  text-align: center;
+  color: #6b7280;
+  font-size: 1.1rem;
+  padding: 4rem;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 2px dashed #d1d5db;
+}
+
+@media (max-width: 768px) {
+  .experience-timeline::before {
+    left: 1.5rem;
+  }
+
+  .experience-item::before {
+    left: 1.5rem;
+  }
+
+  .experience-item:nth-child(odd) .experience-card,
+  .experience-item:nth-child(even) .experience-card {
+    margin-left: 3rem;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .experience-card {
+    padding: 1.5rem;
+  }
+
+  .experience-position {
+    font-size: 1.3rem;
+  }
+
+  .experience-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .experience-card {
+    padding: 1rem;
+  }
+
+  .experience-position {
+    font-size: 1.2rem;
+  }
+
+  .tech-tags {
+    gap: 0.25rem;
+  }
+
+  .tech-tag {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+  }
+}
