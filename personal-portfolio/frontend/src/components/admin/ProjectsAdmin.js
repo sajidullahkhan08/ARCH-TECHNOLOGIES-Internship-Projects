@@ -248,7 +248,6 @@ const ProjectsAdmin = () => {
                 <div className="project-meta">
                   <span>Role: {project.role}</span>
                   {project.featured && <span className="featured-badge">Featured</span>}
-                  }
                 </div>
                 <div className="project-technologies">
                   {project.technologies.map((tech, index) => (

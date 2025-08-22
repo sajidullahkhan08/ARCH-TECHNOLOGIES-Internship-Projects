@@ -61,7 +61,7 @@ const ProjectsSection = ({ data = [] }) => {
         </div>
       </div>
       {project.featured && <div className="featured-badge">Featured</div>}
-      }
+      
     </div>
   );
 

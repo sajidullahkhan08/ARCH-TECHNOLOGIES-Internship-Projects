@@ -50,7 +50,7 @@ const AdminLogin = () => {
           <p>Access the portfolio management dashboard</p>
           
           {error && <div className="error">{error}</div>}
-          }
+          
           
           <form onSubmit={handleSubmit}>
             <div className="form-group">

@@ -69,7 +69,6 @@ const ExperienceSection = ({ data = [] }) => {
                 </div>
                 
                 {index < data.length - 1 && <div className="timeline-connector"></div>}
-                }
               </div>
             ))}
           </div>
