@@ -9,7 +9,8 @@ const TodoForm = ({ onAddTodo }) => {
     description: '',
     priority: 'medium',
     category: 'General',
-    dueDate: ''
+    dueDate: '',
+    status: 'pending' // Added status field
   });
   const [isExpanded, setIsExpanded] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);

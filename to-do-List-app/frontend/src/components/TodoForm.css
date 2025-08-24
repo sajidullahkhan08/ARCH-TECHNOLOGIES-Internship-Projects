@@ -1,5 +1,7 @@
 .todo-form-container {
   margin-bottom: 30px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .todo-form {
@@ -8,6 +10,8 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: all 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .todo-form:hover {

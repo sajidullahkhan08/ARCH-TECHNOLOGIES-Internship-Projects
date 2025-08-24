@@ -27,7 +27,7 @@
 
 .app-content {
   display: grid;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: 1fr 2fr 1fr; /* Three columns: left, center, right */
   gap: 30px;
   align-items: start;
 }

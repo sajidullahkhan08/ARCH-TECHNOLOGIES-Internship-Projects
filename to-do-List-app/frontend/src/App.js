@@ -150,9 +150,8 @@ function App() {
         </header>
 
         <div className="app-content">
-          <div className="sidebar">
+          <div className="sidebar left-sidebar">
             <TodoStats stats={stats} />
-            <TodoFilter filters={filters} onFilterChange={handleFilterChange} />
           </div>
 
           <div className="main-content">
@@ -187,6 +186,10 @@ function App() {
                 </motion.div>
               )}
             </AnimatePresence>
+          </div>
+
+          <div className="sidebar right-sidebar">
+            <TodoFilter filters={filters} onFilterChange={handleFilterChange} />
           </div>
         </div>
       </motion.div>

@@ -5,6 +5,7 @@ import './TodoItem.css';
 
 const TodoItem = ({ todo, isEditing, onSave, onCancel, onDelete, onToggle }) => {
   const [formData, setFormData] = useState({
+    status: 'pending', // Added status field
     title: todo.title,
     description: todo.description || '',
     priority: todo.priority,
