@@ -1,0 +1,312 @@
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.todo-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.todo-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.todo-card:hover::before {
+  transform: scaleX(1);
+}
+
+.todo-card.completed {
+  opacity: 0.7;
+  background: #f8f9fa;
+}
+
+.todo-card.overdue {
+  border-color: #dc3545;
+  background: linear-gradient(135deg, #fff 0%, #fff5f5 100%);
+}
+
+.todo-card.overdue::before {
+  background: #dc3545;
+  transform: scaleX(1);
+}
+
+.todo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.todo-title-section {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  flex: 1;
+}
+
+.check-btn {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #dee2e6;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.check-btn:hover {
+  border-color: #667eea;
+  background: #f8f9ff;
+}
+
+.check-btn.checked {
+  background: #667eea;
+  border-color: #667eea;
+  color: white;
+}
+
+.check-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.todo-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.todo-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #212529;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.todo-title.completed {
+  text-decoration: line-through;
+  color: #6c757d;
+}
+
+.todo-description {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin: 0;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.todo-description.completed {
+  text-decoration: line-through;
+  color: #adb5bd;
+}
+
+.todo-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.action-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 8px;
+  background: #f8f9fa;
+  color: #6c757d;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+  transform: scale(1.1);
+}
+
+.edit-btn:hover {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.delete-btn:hover {
+  background: #ffebee;
+  color: #d32f2f;
+}
+
+.action-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.todo-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: #495057;
+}
+
+.meta-item.overdue {
+  color: #dc3545;
+  font-weight: 500;
+}
+
+.meta-item svg {
+  width: 14px;
+  height: 14px;
+}
+
+.priority-text {
+  font-weight: 500;
+}
+
+.todo-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid #e9ecef;
+  font-size: 0.8rem;
+  color: #adb5bd;
+}
+
+.todo-date,
+.completed-date {
+  font-style: italic;
+}
+
+.completed-date {
+  color: #28a745;
+  font-weight: 500;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6c757d;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #495057;
+}
+
+.empty-state p {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .todo-card {
+    padding: 20px;
+  }
+  
+  .todo-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .todo-actions {
+    align-self: flex-end;
+  }
+  
+  .todo-meta {
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+  }
+  
+  .todo-footer {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  
+  .todo-title {
+    font-size: 1rem;
+  }
+  
+  .action-btn {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .action-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .todo-card {
+    padding: 16px;
+  }
+  
+  .todo-title-section {
+    gap: 12px;
+  }
+  
+  .check-btn {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .check-btn svg {
+    width: 12px;
+    height: 12px;
+  }
+  
+  .todo-title {
+    font-size: 0.95rem;
+  }
+  
+  .todo-description {
+    font-size: 0.85rem;
+  }
+  
+  .meta-item {
+    font-size: 0.8rem;
+  }
+}
