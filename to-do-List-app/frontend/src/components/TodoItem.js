@@ -5,7 +5,6 @@ import './TodoItem.css';
 
 const TodoItem = ({ todo, isEditing, onSave, onCancel, onDelete, onToggle }) => {
   const [formData, setFormData] = useState({
-    status: 'pending', // Added status field
     title: todo.title,
     description: todo.description || '',
     priority: todo.priority,
@@ -45,7 +44,7 @@ const TodoItem = ({ todo, isEditing, onSave, onCancel, onDelete, onToggle }) => 
     onSave(todo._id, updatedData);
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSubmit(e);
@@ -78,7 +77,7 @@ const TodoItem = ({ todo, isEditing, onSave, onCancel, onDelete, onToggle }) => 
               name="title"
               value={formData.title}
               onChange={handleChange}
-              onKeyPress={handleKeyPress}
+              onKeyDown={handleKeyDown}
               className="edit-title-input"
               placeholder="Task title"
               required

@@ -1,34 +1,11 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import { PlayerContext } from '../context/PlayerContext';
 
-const MusicList = () => {
+const MusicList = ({ tracks, loading, error, onDelete }) => {
   const { token } = useContext(AuthContext);
-  const { setCurrentTrack, setIsPlaying } = useContext(PlayerContext);
-  const [tracks, setTracks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-
-  const fetchTracks = async () => {
-    setLoading(true);
-    setError('');
-    try {
-      const res = await axios.get('/api/music', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setTracks(res.data);
-    } catch (err) {
-      setError('Failed to load music list');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchTracks();
-    // eslint-disable-next-line
-  }, []);
+  const { setCurrentTrack, setIsPlaying, currentTrack } = useContext(PlayerContext);
 
   const handlePlay = (track) => {
     setCurrentTrack(track);
@@ -41,7 +18,7 @@ const MusicList = () => {
       await axios.delete(`/api/music/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setTracks(tracks.filter(t => t._id !== id));
+      if (onDelete) onDelete(id);
     } catch (err) {
       alert('Failed to delete track');
     }
@@ -54,7 +31,12 @@ const MusicList = () => {
   return (
     <div className="space-y-2">
       {tracks.map(track => (
-        <div key={track._id} className="flex items-center justify-between bg-gray-800 rounded px-4 py-2 shadow">
+        <div
+          key={track._id}
+          className={`flex items-center justify-between rounded px-4 py-2 shadow ${
+            currentTrack?._id === track._id ? 'bg-blue-900 ring-2 ring-blue-500' : 'bg-gray-800'
+          }`}
+        >
           <div>
             <div className="font-semibold">{track.title}</div>
             <div className="text-xs text-gray-400">{track.artist || 'Unknown Artist'} &bull; {track.duration}s</div>
@@ -64,7 +46,7 @@ const MusicList = () => {
               className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
               onClick={() => handlePlay(track)}
             >
-              Play
+              {currentTrack?._id === track._id ? 'Playing' : 'Play'}
             </button>
             <button
               className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
@@ -79,4 +61,4 @@ const MusicList = () => {
   );
 };
 
-export default MusicList; 
+export default MusicList;

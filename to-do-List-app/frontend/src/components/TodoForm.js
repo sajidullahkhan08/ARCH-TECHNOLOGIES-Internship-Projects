@@ -9,8 +9,7 @@ const TodoForm = ({ onAddTodo }) => {
     description: '',
     priority: 'medium',
     category: 'General',
-    dueDate: '',
-    status: 'pending' // Added status field
+    dueDate: ''
   });
   const [isExpanded, setIsExpanded] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -54,7 +53,7 @@ const TodoForm = ({ onAddTodo }) => {
     }
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSubmit(e);
@@ -87,7 +86,7 @@ const TodoForm = ({ onAddTodo }) => {
               name="title"
               value={formData.title}
               onChange={handleChange}
-              onKeyPress={handleKeyPress}
+              onKeyDown={handleKeyDown}
               placeholder="What needs to be done?"
               className="title-input"
               required

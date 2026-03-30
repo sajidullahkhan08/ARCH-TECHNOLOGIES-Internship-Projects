@@ -28,6 +28,13 @@ const VolumeIcon = () => (
   </svg>
 );
 
+const formatTime = (seconds) => {
+  if (!seconds || isNaN(seconds)) return '0:00';
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${mins}:${secs.toString().padStart(2, '0')}`;
+};
+
 const AudioPlayer = ({ tracks }) => {
   const {
     currentTrack,
@@ -40,13 +47,19 @@ const AudioPlayer = ({ tracks }) => {
     setProgress,
   } = useContext(PlayerContext);
   const { token } = useContext(AuthContext);
-  const audioRef = useRef();
+  const audioRef = useRef(null);
+
+  // Build authenticated stream URL using query param (HTML audio can't send headers)
+  const getStreamUrl = (trackId) => {
+    if (!trackId || !token) return '';
+    return `/api/music/stream/${trackId}?token=${encodeURIComponent(token)}`;
+  };
 
   // Play/pause effect
   useEffect(() => {
     if (!audioRef.current) return;
     if (isPlaying) {
-      audioRef.current.play();
+      audioRef.current.play().catch(() => {});
     } else {
       audioRef.current.pause();
     }
@@ -61,10 +74,11 @@ const AudioPlayer = ({ tracks }) => {
 
   // Progress effect
   useEffect(() => {
-    if (!audioRef.current) return;
-    const update = () => setProgress(audioRef.current.currentTime);
-    audioRef.current.addEventListener('timeupdate', update);
-    return () => audioRef.current.removeEventListener('timeupdate', update);
+    const audio = audioRef.current;
+    if (!audio) return;
+    const update = () => setProgress(audio.currentTime);
+    audio.addEventListener('timeupdate', update);
+    return () => audio.removeEventListener('timeupdate', update);
   }, [setProgress, currentTrack]);
 
   // Track end handler
@@ -110,18 +124,15 @@ const AudioPlayer = ({ tracks }) => {
     <div className="bg-gray-800 rounded p-4 shadow max-w-xl mx-auto mt-6">
       <div className="mb-2">
         <div className="font-semibold text-lg">{currentTrack.title}</div>
-        <div className="text-xs text-gray-400">{currentTrack.artist || 'Unknown Artist'} &bull; {currentTrack.duration}s</div>
+        <div className="text-xs text-gray-400">{currentTrack.artist || 'Unknown Artist'} &bull; {formatTime(currentTrack.duration)}</div>
       </div>
       <audio
         ref={audioRef}
-        src={`/api/music/${currentTrack._id}`}
+        src={getStreamUrl(currentTrack._id)}
         controls={false}
         onEnded={handleEnded}
         onLoadedMetadata={e => setProgress(e.target.currentTime)}
-        style={{ width: '100%' }}
-        crossOrigin="anonymous"
         preload="auto"
-        {...(token ? { headers: { Authorization: `Bearer ${token}` } } : {})}
       />
       <div className="flex items-center gap-2 mt-2">
         <button onClick={handlePrev} className="px-2 py-1 rounded bg-gray-700 hover:bg-gray-600" aria-label="Previous">
@@ -137,6 +148,7 @@ const AudioPlayer = ({ tracks }) => {
         <button onClick={handleNext} className="px-2 py-1 rounded bg-gray-700 hover:bg-gray-600" aria-label="Next">
           <NextIcon />
         </button>
+        <span className="text-xs text-gray-400 min-w-[40px]">{formatTime(progress)}</span>
         <input
           type="range"
           min={0}
@@ -145,6 +157,7 @@ const AudioPlayer = ({ tracks }) => {
           onChange={handleSeek}
           className="flex-1 mx-2 accent-blue-500"
         />
+        <span className="text-xs text-gray-400 min-w-[40px]">{formatTime(currentTrack.duration)}</span>
         <span className="mr-2"><VolumeIcon /></span>
         <input
           type="range"
@@ -161,4 +174,4 @@ const AudioPlayer = ({ tracks }) => {
   );
 };
 
-export default AudioPlayer; 
+export default AudioPlayer;

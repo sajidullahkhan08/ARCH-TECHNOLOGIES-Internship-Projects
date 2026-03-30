@@ -11,7 +11,8 @@ const {
 
 router.post('/upload', auth, upload.single('file'), uploadMusic);
 router.get('/', auth, getMusicList);
-router.get('/:id', auth, streamMusic);
+// Stream supports both header auth and ?token= query param (for <audio> elements)
+router.get('/stream/:id', auth, streamMusic);
 router.delete('/:id', auth, deleteMusic);
 
 module.exports = router; 

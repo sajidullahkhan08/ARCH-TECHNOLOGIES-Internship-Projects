@@ -41,6 +41,26 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Get todos statistics
+router.get('/stats/summary', async (req, res) => {
+  try {
+    const total = await Todo.countDocuments();
+    const completed = await Todo.countDocuments({ completed: true });
+    const pending = await Todo.countDocuments({ completed: false });
+    const highPriority = await Todo.countDocuments({ priority: 'high', completed: false });
+
+    res.json({
+      total,
+      completed,
+      pending,
+      highPriority,
+      completionRate: total > 0 ? Math.round((completed / total) * 100) : 0
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching statistics', error: error.message });
+  }
+});
+
 // Get single todo
 router.get('/:id', async (req, res) => {
   try {
@@ -120,26 +140,6 @@ router.patch('/:id/toggle', async (req, res) => {
     res.json(updatedTodo);
   } catch (error) {
     res.status(500).json({ message: 'Error toggling todo', error: error.message });
-  }
-});
-
-// Get todos statistics
-router.get('/stats/summary', async (req, res) => {
-  try {
-    const total = await Todo.countDocuments();
-    const completed = await Todo.countDocuments({ completed: true });
-    const pending = await Todo.countDocuments({ completed: false });
-    const highPriority = await Todo.countDocuments({ priority: 'high', completed: false });
-    
-    res.json({
-      total,
-      completed,
-      pending,
-      highPriority,
-      completionRate: total > 0 ? Math.round((completed / total) * 100) : 0
-    });
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching statistics', error: error.message });
   }
 });
 
