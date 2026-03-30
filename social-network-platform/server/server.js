@@ -6,6 +6,8 @@ const morgan = require('morgan');
 const { createServer } = require('http');
 const { Server } = require('socket.io');
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
+const path = require('path');
 require('dotenv').config();
 
 // Import routes
@@ -31,12 +33,15 @@ const io = new Server(server, {
 });
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/social-network', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/social-network')
 .then(() => console.log('Connected to MongoDB'))
 .catch(err => console.error('MongoDB connection error:', err));
+
+// Ensure uploads directory exists
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
 
 // Middleware
 app.use(helmet());
@@ -109,13 +114,13 @@ io.on('connection', (socket) => {
 // Make io accessible to routes
 app.set('io', io);
 
-// Error handling middleware
-app.use(errorHandler);
-
-// 404 handler
+// 404 handler (must be before error handler)
 app.use('*', (req, res) => {
   res.status(404).json({ message: 'Route not found' });
 });
+
+// Error handling middleware
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 

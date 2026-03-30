@@ -1,173 +1,66 @@
-# Personal Portfolio - MERN Stack
+# Personal Portfolio — CMS-Backed
 
-A full-stack personal portfolio application built with the MERN stack, featuring an admin panel for content management.
+A dynamic personal portfolio website with a full admin dashboard for managing all content sections. Built with the MERN stack.
 
 ## Features
-
-- **Public Portfolio**: Showcase your professional profile with multiple sections
-- **Admin Panel**: Complete content management system
-- **Responsive Design**: Optimized for all devices
-- **RESTful APIs**: Backend APIs for all portfolio sections
-- **Authentication**: Secure admin access with JWT
-
-## Portfolio Sections
-
-- Introduction
-- Background (Education & Certifications)
-- Projects
-- Skills
-- Experience
-- Testimonials
-- Blog/Articles
-- Achievements
-- Contact Information
+- **Dynamic Content:** All portfolio sections are CMS-managed via API
+- **Admin Dashboard:** Protected admin panel to add/edit/delete all content
+- **Content Sections:** Introduction, Background, Projects, Skills, Experience, Testimonials, Blog, Achievements, Contact
+- **JWT Authentication:** Secure admin login with token-based auth
+- **Responsive Design:** Clean vanilla CSS styling
 
 ## Tech Stack
+| Layer | Technology |
+|-------|-----------|
+| Frontend | React 18, React Router, Axios |
+| Backend | Express.js, Mongoose, JWT, bcryptjs |
+| Database | MongoDB |
 
-- **Frontend**: React, CSS3, Axios
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB, Mongoose
-- **Authentication**: JWT
-- **Styling**: CSS Modules & Flexbox/Grid
-
-## Project Structure
-
-```
-/
-├── frontend/          # React application
-│   ├── src/
-│   ├── public/
-│   ├── package.json
-│   ├── .env
-│   └── .gitignore
-├── backend/           # Express.js API
-│   ├── models/
-│   ├── routes/
-│   ├── middleware/
-│   ├── server.js
-│   ├── package.json
-│   ├── .env
-│   └── .gitignore
-└── README.md
-```
-
-## Getting Started
+## Setup
 
 ### Prerequisites
+- Node.js 14+
+- MongoDB running locally or a MongoDB Atlas URI
 
-- Node.js (v14 or higher)
-- MongoDB (local installation or MongoDB Atlas)
-- npm or yarn
+### Backend
+```bash
+cd backend
+cp .env.example .env   # IMPORTANT: Change ADMIN_PASSWORD and JWT_SECRET
+npm install
+npm run dev
+```
 
-### Installation
+> ⚠️ **Security:** The admin account is created from environment variables on first startup. Always set strong `ADMIN_PASSWORD` and `JWT_SECRET` values.
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd personal-portfolio
-   ```
+### Frontend
+```bash
+cd frontend
+npm install
+npm start
+```
 
-2. **Backend Setup**
-   ```bash
-   cd backend
-   npm install
-   ```
-   
-   Create `.env` file in backend folder:
-   ```
-   MONGODB_URI=mongodb://localhost:27017/portfolio
-   JWT_SECRET=your-secret-key
-   PORT=5000
-   ```
-   
-   Start the backend server:
-   ```bash
-   npm run dev
-   ```
-
-3. **Frontend Setup**
-   ```bash
-   cd frontend
-   npm install
-   ```
-   
-   Create `.env` file in frontend folder:
-   ```
-   REACT_APP_API_URL=http://localhost:5000/api
-   ```
-   
-   Start the frontend application:
-   ```bash
-   npm start
-   ```
-
-4. **Access the Application**
-   - Portfolio: http://localhost:3000
-   - Admin Panel: http://localhost:3000/admin
-
-### Default Admin Credentials
-
-- **Username**: admin
-- **Password**: admin123
-
-*Please change these credentials after first login*
+The frontend runs on `http://localhost:3000` and proxies API requests to `http://localhost:5000`.
 
 ## API Endpoints
 
 ### Authentication
-- `POST /api/auth/login` - Admin login
-- `GET /api/auth/verify` - Verify JWT token
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| POST | /api/auth/login | No | Admin login |
+| GET | /api/auth/verify | Yes | Verify token |
 
-### Portfolio Sections
-- `GET /api/introduction` - Get introduction
-- `PUT /api/introduction` - Update introduction (Admin)
-- `GET /api/background` - Get background info
-- `PUT /api/background` - Update background (Admin)
-- `GET /api/projects` - Get all projects
-- `POST /api/projects` - Create project (Admin)
-- `PUT /api/projects/:id` - Update project (Admin)
-- `DELETE /api/projects/:id` - Delete project (Admin)
-
-*Similar endpoints exist for all other sections*
-
-## Development
-
-### Backend Development
-```bash
-cd backend
-npm run dev  # Uses nodemon for auto-restart
-```
-
-### Frontend Development
-```bash
-cd frontend
-npm start    # React development server
-```
-
-## Deployment
-
-### Backend Deployment
-1. Set environment variables on your hosting platform
-2. Ensure MongoDB connection string is configured
-3. Deploy using your preferred method (Heroku, Digital Ocean, etc.)
-
-### Frontend Deployment
-1. Build the production version: `npm run build`
-2. Deploy the `build` folder to your static hosting service
-3. Update the API URL in production environment
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch: `git checkout -b feature/new-feature`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin feature/new-feature`
-5. Submit a pull request
+### Portfolio Content (All GET routes are public, PUT/POST/DELETE require auth)
+| Section | GET | PUT/POST | DELETE |
+|---------|-----|----------|--------|
+| Introduction | GET /api/introduction | PUT /api/introduction | — |
+| Background | GET /api/background | PUT /api/background | — |
+| Skills | GET /api/skills | PUT /api/skills | — |
+| Contact | GET /api/contact | PUT /api/contact | — |
+| Projects | GET /api/projects | POST /api/projects, PUT /api/projects/:id | DELETE /api/projects/:id |
+| Experience | GET /api/experience | POST /api/experience, PUT /api/experience/:id | DELETE /api/experience/:id |
+| Testimonials | GET /api/testimonials | POST /api/testimonials, PUT /api/testimonials/:id | DELETE /api/testimonials/:id |
+| Blog | GET /api/blog | POST /api/blog, PUT /api/blog/:id | DELETE /api/blog/:id |
+| Achievements | GET /api/achievements | POST /api/achievements, PUT /api/achievements/:id | DELETE /api/achievements/:id |
 
 ## License
-
-This project is licensed under the MIT License.
-
-## Contact
-
-For any questions or support, please contact [your-email@example.com]
+MIT

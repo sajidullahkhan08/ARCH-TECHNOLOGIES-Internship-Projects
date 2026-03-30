@@ -85,8 +85,7 @@ const getPosts = async (req, res) => {
     const { page = 1, limit = 10 } = req.query;
 
     const user = await User.findById(userId);
-    const friendIds = user.friends || [];
-    friendIds.push(userId); // Include own posts
+    const friendIds = [...(user.friends || []), userId]; // Include own posts without mutating
 
     const posts = await Post.find({ userId: { $in: friendIds } })
       .populate('userId', 'username profilePicture')

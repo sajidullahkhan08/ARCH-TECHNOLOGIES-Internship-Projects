@@ -36,10 +36,6 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }],
-  friendRequests: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }],
   isOnline: {
     type: Boolean,
     default: false

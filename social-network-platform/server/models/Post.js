@@ -40,7 +40,7 @@ postSchema.virtual('commentCount').get(function() {
 
 // Method to check if user liked the post
 postSchema.methods.isLikedBy = function(userId) {
-  return this.likes.includes(userId);
+  return this.likes.some(id => id.toString() === userId.toString());
 };
 
 // Method to toggle like

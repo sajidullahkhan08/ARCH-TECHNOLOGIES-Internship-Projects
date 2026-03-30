@@ -5,14 +5,22 @@ const authMiddleware = require('../middleware/auth');
 
 const router = express.Router();
 
-// Initialize default admin user
+// Initialize default admin user from environment variables
 const initializeAdmin = async () => {
   try {
-    const adminExists = await User.findOne({ username: 'admin' });
+    const adminUsername = process.env.ADMIN_USERNAME;
+    const adminPassword = process.env.ADMIN_PASSWORD;
+
+    if (!adminUsername || !adminPassword) {
+      console.warn('ADMIN_USERNAME and ADMIN_PASSWORD not set in environment. Skipping admin initialization.');
+      return;
+    }
+
+    const adminExists = await User.findOne({ username: adminUsername });
     if (!adminExists) {
       const admin = new User({
-        username: 'admin',
-        password: 'admin123'
+        username: adminUsername,
+        password: adminPassword
       });
       await admin.save();
       console.log('Default admin user created');
